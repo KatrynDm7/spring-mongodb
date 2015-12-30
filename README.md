@@ -8,12 +8,12 @@ Tutorial was taken from this post:http://habrahabr.ru/post/217391/
     <li>Fixed wrong base-package</li>
 </ol>
 
-<h2>Require for working with MongoDB:</h2>
+<h2>Requirements for working with MongoDB:</h2>
 <ol>
     <li>You could change db settings at database.properties</li>
     <li>Before starting work with app you should create collection "sequences" and add this data:
         <p>db.createCollection("sequences")</p>
         <p>db.sequences.insert({"_id" : "contacts", "sequence" : 0 })</p>
     </li>
-    <li>Second collection "contacts" will be created automatically when you will add a contact through the contact form</li>
+    <li>Second collection "contacts" will be created automatically when you will add a contact info through the contact form</li>
 </ol>
