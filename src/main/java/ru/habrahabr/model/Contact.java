@@ -14,15 +14,17 @@ public class Contact implements Serializable {
     private String name;
     private String number;
     private String email;
+    private String date;
 
     public Contact() {
 
     }
 
-    public Contact(String name, String number, String email) {
+    public Contact(String name, String number, String email, String date) {
         this.name = name;
         this.number = number;
         this.email = email;
+        this.date = date;
     }
 
     public Long getId() {
@@ -55,5 +57,13 @@ public class Contact implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
