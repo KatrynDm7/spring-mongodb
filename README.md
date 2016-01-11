@@ -6,8 +6,10 @@ Tutorial was taken from this post:http://habrahabr.ru/post/217391/
 <ol>
     <li>Versions of jdk (1.8), spring (4.2.3.RELEASE), spring.mongodb (1.8.2.RELEASE) were updated</li>
     <li>Fixed wrong base-package</li>
-    <li>JSP was changed to html5 - thymeleaf</li>
-    <li>on contact create: adds the date of its creation</li>
+    <li>JSP was changed to html5 - JTwig</li>
+    <li>On contact create: adds the date of its creation</li>
+    <li>i18n for 'ru' & 'en' languages: used in a table titles and date field in format "Дек 25, 2015"</li>
+    <li>It has been added server validation for phone number: 11 digits without spaces</li>
 </ol>
 
 <h2>Requirements for working with MongoDB:</h2>

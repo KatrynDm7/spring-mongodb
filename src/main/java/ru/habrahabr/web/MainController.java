@@ -2,13 +2,18 @@ package ru.habrahabr.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
-import ru.habrahabr.services.ContactService;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import ru.habrahabr.model.Contact;
+import ru.habrahabr.services.ContactService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @Controller
 public class MainController {
@@ -16,18 +21,18 @@ public class MainController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView showAll() {
-        ModelAndView modelAndView = new ModelAndView("all");
+        ModelAndView modelAndView = new ModelAndView("partials/all");
         modelAndView.addObject("contacts", contactService.getAll());
         return modelAndView;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView showAddForm() {
-        return new ModelAndView("add_form", "contact", new Contact());
+        return new ModelAndView("partials/add_form", "contact", new Contact());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addContact(@ModelAttribute("contact") Contact contact) {
+    public ModelAndView addContact(@ModelAttribute("contact") @Valid Contact contact, BindingResult result) {
         if (contact.getId() == null) {
             contactService.add(contact);
         }
@@ -35,17 +40,29 @@ public class MainController {
             contactService.update(contact);
         }
 
-        return "redirect:/";
+        if (result.hasErrors()) {
+            return new ModelAndView("partials/add_form", "numberError", result.getFieldError("number").getDefaultMessage());
+        }
+
+        return new ModelAndView("redirect:/");
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView showEditForm(@RequestParam(required = true) Long id) {
-        return new ModelAndView("add_form", "contact", contactService.get(id));
+        return new ModelAndView("partials/add_form", "contact", contactService.get(id));
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteContact(@RequestParam(required = true) Long id) {
         contactService.remove(id);
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/lang={lang}", method = RequestMethod.GET)
+    public String welcome(HttpServletRequest request, HttpServletResponse response, @PathVariable("lang") String lang) {
+        LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+        localeResolver.setLocale(request, response, StringUtils.parseLocaleString(lang));
 
         return "redirect:/";
     }

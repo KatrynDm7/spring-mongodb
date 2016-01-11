@@ -1,0 +1,12 @@
+.date:first-letter {
+    text-transform: uppercase;
+}
+.localeSwitch.active {
+    color: #777;
+}
+.langControl {
+    display: block;
+    float: left;
+    font-size: 17px;
+    margin: 10px 15px 0 0;
+}

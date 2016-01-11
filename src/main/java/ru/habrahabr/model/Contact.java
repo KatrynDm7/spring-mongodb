@@ -2,18 +2,24 @@ package ru.habrahabr.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Document(collection = Contact.COLLECTION_NAME)
 public class Contact implements Serializable {
+
     public static final String COLLECTION_NAME = "contacts";
 
     @Id
     private Long id;
+
     private String name;
+
+    @Pattern(regexp = "^[0-9]{11}$", message = "Invalid phone number!")
     private String number;
+
     private String email;
+
     private String date;
 
     public Contact() {
