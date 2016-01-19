@@ -17,7 +17,7 @@ public class ContactDao {
         mongoOperations.save(contact);
     }
 
-    public Contact get(Long id) {
+    public Contact get(int id) {
         return mongoOperations.findOne(Query.query(Criteria.where("id").is(id)), Contact.class);
     }
 
@@ -25,7 +25,7 @@ public class ContactDao {
         return mongoOperations.findAll(Contact.class);
     }
 
-    public void remove(Long id) {
+    public void remove(int id) {
         mongoOperations.remove(Query.query(Criteria.where("id").is(id)), Contact.class);
     }
 }

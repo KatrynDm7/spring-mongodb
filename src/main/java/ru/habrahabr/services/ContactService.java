@@ -26,7 +26,7 @@ public class ContactService {
         contactDao.save(contact);
     }
 
-    public Contact get(Long id) {
+    public Contact get(int id) {
         return contactDao.get(id);
     }
 
@@ -34,7 +34,7 @@ public class ContactService {
         return contactDao.getAll();
     }
 
-    public void remove(Long id) {
+    public void remove(int id) {
         contactDao.remove(id);
     }
 

@@ -17,7 +17,7 @@
         <version.thymeleaf>2.1.4.RELEASE</version.thymeleaf>
         <version.spring.mongodb>1.8.2.RELEASE</version.spring.mongodb>
         <version.java.driver.mongodb>2.11.4</version.java.driver.mongodb>
-        <version.jackson>1.9.13</version.jackson>
+        <version.jackson>2.6.1</version.jackson>
     </properties>
 
     <dependencies>
@@ -115,6 +115,13 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>5.0.1.Final</version>
+        </dependency>
+
+        <!-- support of Json -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-base</artifactId>
+            <version>${version.jackson}</version>
         </dependency>
 
         <!-- TEST -->

@@ -6,30 +6,30 @@
         <a class="localeSwitch" href="/lang=ru">ru</a>
     </div>
     <img src="/resources/images/logo.png"/><br/>
-    <table class="table table-striped">
-        <tr>
-            <td>{{ "Name"|trans }}</td>
-            <td>{{ "Number"|trans }}</td>
-            <td>{{ "E-mail"|trans }}</td>
-            <td>{{ "Date"|trans }}</td>
-            <td>{{ "Action"|trans }}</td>
-        </tr>
-        {% for contact in contacts %}
+    <form method="POST" action="/delete" role="form">
+        <table class="table table-striped">
+            <tbody>
             <tr>
-                <td>{{ contact.name }}</td>
-                <td>{{ contact.number }}</td>
-                <td>{{ contact.email }}</td>
-                <td class="date">{{ contact.date }}</td>
-                <td>
-                    <a href="/edit?id={{ contact.id }}">{{ "Edit"|trans }}</a>
-                    <a href="/delete?id={{ contact.id }}">{{ "Delete"|trans }}</a>
-                </td>
+                <td>{{ "Name"|trans }}</td>
+                <td>{{ "Number"|trans }}</td>
+                <td>{{ "E-mail"|trans }}</td>
+                <td>{{ "Date"|trans }}</td>
+                <td>{{ "Action"|trans }}</td>
             </tr>
-        {% endfor %}
-        <tr>
-            <td colspan="5">
-                <a href="/add">{{ "Add.entry"|trans }}</a>
-            </td>
-        </tr>
-    </table>
+            {% for contact in contacts %}
+                <tr class="{{ contact.id }}">
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.number }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td class="date">{{ contact.date }}</td>
+                    <td>
+                        <a href="/edit?id={{ contact.id }}" class="edit"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="delete"><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    <div><a href="/add">{{ "Add.entry"|trans }}</a></div>
 {% endblock %}

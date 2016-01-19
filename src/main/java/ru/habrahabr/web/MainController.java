@@ -1,7 +1,6 @@
 package ru.habrahabr.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-@Controller
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@RestController
 public class MainController {
     @Autowired private ContactService contactService;
 
@@ -48,15 +48,15 @@ public class MainController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public ModelAndView showEditForm(@RequestParam(required = true) Long id) {
+    public ModelAndView showEditForm(@RequestParam(required = true) int id) {
         return new ModelAndView("partials/add_form", "contact", contactService.get(id));
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String deleteContact(@RequestParam(required = true) Long id) {
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public int deleteContact(@RequestParam(required = true) int id) {
         contactService.remove(id);
 
-        return "redirect:/";
+        return id;
     }
 
     @RequestMapping(value = "/lang={lang}", method = RequestMethod.GET)
@@ -64,6 +64,7 @@ public class MainController {
         LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
         localeResolver.setLocale(request, response, StringUtils.parseLocaleString(lang));
 
-        return "redirect:/";
+        return lang;
     }
+
 }
